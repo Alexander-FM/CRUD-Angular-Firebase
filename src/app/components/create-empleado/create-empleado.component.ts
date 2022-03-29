@@ -38,14 +38,15 @@ export class CreateEmpleadoComponent implements OnInit {
     if (this.createEmpleado.invalid) {
       return;
     }
-    if(this.id === null){
+    if (this.id === null) {
       this.agregarEmpleado();
-    }else{
+    } else {
       this.editarEmpleado(this.id);
     }
   }
 
   agregarEmpleado() {
+    this.titulo = 'Registrar Empleado';
     const empleado: any = {
       nombre: this.createEmpleado.value.nombre,
       apellidos: this.createEmpleado.value.apellidos,
@@ -64,8 +65,11 @@ export class CreateEmpleadoComponent implements OnInit {
       this.loading = false
     })
   }
-
-  editarEmpleado(id: string){
+  /**
+   * Edita el empleado proporcionando su id
+   * @param id 
+   */
+  editarEmpleado(id: string) {
     const empleado: any = {
       nombre: this.createEmpleado.value.nombre,
       apellidos: this.createEmpleado.value.apellidos,
@@ -81,10 +85,10 @@ export class CreateEmpleadoComponent implements OnInit {
     })
   }
 
-  empleadoEditar() {
-    this.titulo = 'Editar Datos'
+  empleadoEditar() {   
     if (this.id != null) {
       this.empleadoservice.getEmpleadoById(this.id).subscribe(data => {
+        this.titulo = 'Editar Empleado';
         //console.log(data.payload.data('nombre'));
         this.createEmpleado.setValue({
           nombre: data.payload.data()['nombre'],
